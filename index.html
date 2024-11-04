@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Under Construction</title>
+    <style>
+        :root {
+            --primary-color: #ffd700;
+            --secondary-color: #ff6b6b;
+            --bg-color: #1a1a1a;
+            --clock-bg: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-color);
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .construction-container {
+            text-align: center;
+            position: relative;
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            background: rgba(42, 42, 42, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .clock {
+            width: min(200px, 50vw);
+            height: min(200px, 50vw);
+            border: 10px solid var(--primary-color);
+            border-radius: 50%;
+            position: relative;
+            margin: 20px auto;
+            background: var(--clock-bg);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .clock:hover {
+            transform: scale(1.05);
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            transition: transform 0.5s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+        }
+
+        .hour {
+            width: 4px;
+            height: 30%;
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        .minute {
+            width: 3px;
+            height: 40%;
+            background: #fff;
+            border-radius: 5px;
+        }
+
+        .second {
+            width: 2px;
+            height: 45%;
+            background: var(--secondary-color);
+            border-radius: 5px;
+        }
+
+        .center-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .time-markers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .marker {
+            position: absolute;
+            width: 2px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            left: 50%;
+            transform-origin: 50% calc(100% - 5px);
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .estimated-time {
+            font-size: 1.1em;
+            margin: 10px 0;
+            color: #ccc;
+        }
+
+        .tools {
+            position: absolute;
+            font-size: 2em;
+            animation: rotate 10s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+        }
+
+        .tools-left { left: -40px; top: 50%; }
+        .tools-right { right: -40px; top: 50%; }
+
+        .progress-container {
+            margin-top: 20px;
+        }
+
+        .progress {
+            width: 100%;
+            height: 10px;
+            background: var(--clock-bg);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            animation: shine 1.5s infinite;
+        }
+
+        .progress-label {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #ccc;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--primary-color); }
+            to { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--primary-color); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes shine {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+
+        @media (max-width: 480px) {
+            .construction-container {
+                padding: 10px;
+            }
+
+            .tools {
+                font-size: 1.5em;
+            }
+
+            .tools-left { left: -30px; }
+            .tools-right { right: -30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="construction-container">
+        <div class="clock">
+            <div class="time-markers"></div>
+            <div class="hand hour"></div>
+            <div class="hand minute"></div>
+            <div class="hand second"></div>
+            <div class="center-dot"></div>
+        </div>
+        <h1>Under Construction</h1>
+        <div class="estimated-time">Estimated completion time: <span id="countdown">Loading...</span></div>
+        <div class="progress-container">
+            <div class="progress">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="progress-label">Development progress: <span id="progress-percent">0</span>%</div>
+        </div>
+    </div>
+
+    <script>
+        // Create clock markers
+        const markersContainer = document.querySelector('.time-markers');
+        for (let i = 0; i < 12; i++) {
+            const marker = document.createElement('div');
+            marker.className = 'marker';
+            marker.style.transform = `rotate(${i * 30}deg)`;
+            markersContainer.appendChild(marker);
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours() % 12;
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const milliseconds = now.getMilliseconds();
+
+            const hourDeg = (hours * 30) + (minutes * 0.5);
+            const minuteDeg = minutes * 6 + (seconds * 0.1);
+            const secondDeg = seconds * 6 + (milliseconds * 0.006);
+
+            document.querySelector('.hour').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+            document.querySelector('.minute').style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+            document.querySelector('.second').style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+        }
+
+        // Countdown timer
+        function updateCountdown() {
+            const now = new Date();
+            const target = new Date(now);
+            target.setDate(target.getDate() + 30); // 30 days from now
+            
+            const diff = target - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            document.getElementById('countdown').textContent = 
+                `${days} days ${hours} hours ${minutes} minutes`;
+        }
+
+        // Progress bar animation
+        function updateProgress() {
+            const progress = document.querySelector('.progress-bar');
+            const progressLabel = document.getElementById('progress-percent');
+            const randomProgress = Math.floor(Math.random() * (80 - 20) + 20);
+            progress.style.width = `${randomProgress}%`;
+            progressLabel.textContent = randomProgress;
+        }
+
+        // Update functions
+        setInterval(updateClock, 50); // Smoother second hand movement
+        setInterval(updateCountdown, 60000); // Update countdown every minute
+        setInterval(updateProgress, 3000); // Update progress every 3 seconds
+
+        // Initial calls
+        updateClock();
+        updateCountdown();
+        updateProgress();
+    </script>
+</body>
+</html>
